@@ -37,7 +37,7 @@ if [[ -d ${repo_dist_dir} ]]; then
     rm -rf ${repo_dist_dir}
 fi
 
-#git clone ssh://${GERRIT_USER}@gerrit.libremobileos.com:29418/${repo_dist} 
+git clone https://github.com/${repo_dist}.git 
 #scp -p -P 29418 ${GERRIT_USER}@gerrit.libremobileos.com:hooks/commit-msg "${repo_dist_dir}/.git/hooks/"
 if [[ ! -d ${repo_dist_dir} ]]; then
     echo "ERROR: Repo failed to clone"
