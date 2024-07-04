@@ -1,0 +1,33 @@
+name: Add LineageOS Device Tree
+
+on:
+  workflow_dispatch:
+    inputs:
+      LOSDT:
+        description: 'LineageOS Device Tree URL'
+        required: true
+        default: 'sounddrill31/android_device_xiaomi_gauguin'
+      LOSBRANCH:
+        description: 'LineageOS Device Tree Branch'
+        required: true
+        default: 'lineage-21'
+      FINALBRANCH:
+        description: 'Output Branch'
+        required: true
+        default: 'lmo-fourteen'
+
+jobs:
+  add-device:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Run add-device.sh script
+        run: |
+          ./lmodroid/add-device-from-lineage/fork-and-push.sh $LOS_DT $LOS_BRANCH $LOS_DT $FINAL_BRANCH
+        env:
+          LOS_DT: ${{ inputs.LOSDT }}
+          LOS_BRANCH: ${{ inputs.LOSBRANCH }}
+          FINAL_BRANCH: ${{ inputs.FINALBRANCH }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
