@@ -23,6 +23,11 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
+      - name: Set Up Git
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+
       - name: Run add-device.sh script
         run: |
           ./lmodroid/add-device-from-lineage/fork-and-push.sh $LOS_DT $LOS_BRANCH $LOS_DT $FINAL_BRANCH
