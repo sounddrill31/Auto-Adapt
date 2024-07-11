@@ -53,4 +53,4 @@ jobs:
           LOS_DT: ${{ inputs.LOSDT }}
           LOS_BRANCH: ${{ inputs.LOSBRANCH }}
           FINAL_BRANCH: ${{ inputs.FINALBRANCH }}
-          PAT: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
