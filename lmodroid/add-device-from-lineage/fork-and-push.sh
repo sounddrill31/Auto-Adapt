@@ -11,11 +11,15 @@ if [ "$4" == "" ]; then
     exit 1
 fi
 
+if [[ ! -f "token" ]]; then
 if [[ -z "$GITHUB_TOKEN" ]]; then
     echo "ERROR: Set the GITHUB_TOKEN environment variable"
     exit 1
 fi
 echo "$GITHUB_TOKEN" > token
+fi
+# Authenticate using GH
+gh auth login --with-token < token
 
 export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no"
 LOCALDIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
