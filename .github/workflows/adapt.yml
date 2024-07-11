@@ -30,10 +30,10 @@ jobs:
 
       - name: Run add-device.sh script
         run: |
-          echo "$GITHUB_TOKEN" > token
+          echo "$PAT" > token
           ./lmodroid/add-device-from-lineage/fork-and-push.sh $LOS_DT $LOS_BRANCH $LOS_DT $FINAL_BRANCH
         env:
           LOS_DT: ${{ inputs.LOSDT }}
           LOS_BRANCH: ${{ inputs.LOSBRANCH }}
           FINAL_BRANCH: ${{ inputs.FINALBRANCH }}
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          PAT: ${{ secrets.PAT }}

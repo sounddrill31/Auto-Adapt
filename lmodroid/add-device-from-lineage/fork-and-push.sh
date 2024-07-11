@@ -12,7 +12,7 @@ if [ "$4" == "" ]; then
 fi
 
 if [[ ! -f "token" ]]; then
-if [[ -z "$GITHUB_TOKEN" ]]; then
+if [[ -z "$PAT" ]]; then
     echo "ERROR: Set the GITHUB_TOKEN environment variable"
     exit 1
 fi
