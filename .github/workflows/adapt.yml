@@ -42,12 +42,12 @@ jobs:
           # Check if the repository exists in the user's account
           if [ "$USERNAME" != "$REPO_USERNAME" ]; then
             echo "Repository's username is not the same as workflow runner's username. Forking..."
-            gh repo fork https://github.com/${repo_src}.git --clone=true -- "lineage/ -b ${branch_src}"
+            gh repo fork https://github.com/${repo_src}.git --clone=false
             # Wait for a moment to ensure the fork is created
-            sleep 5
-          else
-            git clone https://$USERNAME:$TOKEN@github.com/$USERNAME/${repo_name}.git lineage/ -b ${branch_src}
+            sleep 10
           fi
+
+          git clone https://$USERNAME:$TOKEN@github.com/$USERNAME/${repo_name}.git lineage/ -b ${branch_src}
           cd lineage
           git switch -c ${branch_dist}
 
