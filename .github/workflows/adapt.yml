@@ -37,7 +37,6 @@ jobs:
           branch_dist=${{ github.event.inputs.FINALBRANCH }}
           USERNAME=${{ github.actor }}
           TOKEN=${{ secrets.PAT }}
-          GH_TOKEN=$TOKEN
 
           # Check if the repository exists in the user's account
           if ! gh repo view ${repo_src} &>/dev/null; then
@@ -57,3 +56,6 @@ jobs:
           git add -A
           git commit -m "Adapt to LMODroid by device-add script"
           git push --set-upstream -o skip-validation origin ${branch_dist} -f
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
+        
