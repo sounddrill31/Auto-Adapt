@@ -35,8 +35,10 @@ jobs:
           branch_src=${{ github.event.inputs.LOSBRANCH }}
           repo_dist=${{ github.event.inputs.LOSDT }}
           branch_dist=${{ github.event.inputs.FINALBRANCH }}
+          USERNAME=${{ github.actor }}
+          TOKEN=${{ secrets.PAT }}
 
-          git clone https://github.com/${repo_src}.git lineage/ -b ${branch_src}
+          git clone https://$USERNAME:$TOKEN@github.com/${repo_src}.git lineage/ -b ${branch_src}
           cd lineage
           git switch -c ${branch_dist}
 
