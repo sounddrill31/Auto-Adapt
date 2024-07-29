@@ -41,12 +41,12 @@ jobs:
           # Check if the repository exists in the user's account
           if ! gh repo view ${repo_src} &>/dev/null; then
             echo "Repository doesn't exist in user's account. Forking..."
-            gh repo fork https://github.com/${repo_src}.git --clone=false
+            gh repo fork https://github.com/${repo_src}.git --clone=true -- "lineage/ -b ${branch_src}"
             # Wait for a moment to ensure the fork is created
             sleep 5
+          else
+            git clone https://$USERNAME:$TOKEN@github.com/$USERNAME/${repo_name}.git lineage/ -b ${branch_src}
           fi
-
-          git clone https://$USERNAME:$TOKEN@github.com/$USERNAME/${repo_name}.git lineage/ -b ${branch_src}
           cd lineage
           git switch -c ${branch_dist}
 
