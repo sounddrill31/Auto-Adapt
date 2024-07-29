@@ -31,10 +31,10 @@ jobs:
       - name: Run add-device.sh script
         run: |
           #./lmodroid/add-device-from-lineage/fork-and-push.sh $LOS_DT $LOS_BRANCH $LOS_DT $FINAL_BRANCH
-          repo_src=$LOS_DT
-          branch_src=$LOS_BRANCH
-          repo_dist=$LOS_DT
-          branch_dist=$FINAL_BRANCH
+          repo_src=${{ github.event.inputs.LOS_DT }}
+          branch_src=${{ github.event.inputs.LOS_BRANCH }}
+          repo_dist=${{ github.event.inputs.LOS_DT }}
+          branch_dist=${{ github.event.inputs.FINAL_BRANCH }}
 
           git clone https://github.com/${repo_src}.git lineage/ -b ${branch_src}
           cd lineage
