@@ -59,4 +59,3 @@ jobs:
           git push --set-upstream -o skip-validation origin ${branch_dist} -f
         env:
           GH_TOKEN: ${{ secrets.PAT }}
-        
