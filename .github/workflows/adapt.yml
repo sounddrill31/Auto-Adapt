@@ -1,0 +1,61 @@
+name: Add LineageOS Device Tree
+
+on:
+  workflow_dispatch:
+    inputs:
+      LOSDT:
+        description: 'LineageOS Device Tree URL'
+        required: true
+        default: 'sounddrill31/android_device_xiaomi_gauguin'
+      LOSBRANCH:
+        description: 'LineageOS Device Tree Branch'
+        required: true
+        default: 'lineage-21'
+      FINALBRANCH:
+        description: 'Output Branch'
+        required: true
+        default: 'lmo-fourteen'
+
+jobs:
+  add-device:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Set Up Git
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+
+      - name: Run add-device.sh script
+        run: |
+          repo_src=${{ github.event.inputs.LOSDT }}
+          REPO_USERNAME=${repo_src%%/*}
+          repo_name=${repo_src#*/} 
+          branch_src=${{ github.event.inputs.LOSBRANCH }}
+          repo_dist=${{ github.event.inputs.LOSDT }}
+          branch_dist=${{ github.event.inputs.FINALBRANCH }}
+          USERNAME=${{ github.actor }}
+          TOKEN=${{ secrets.PAT }}
+
+          # Check if the repository exists in the user's account
+          if [ "$USERNAME" != "$REPO_USERNAME" ]; then
+            echo "Repository's username is not the same as workflow runner's username. Forking..."
+            gh repo fork https://github.com/${repo_src}.git --clone=false
+            # Wait for a moment to ensure the fork is created
+            sleep 10
+          fi
+
+          git clone https://$USERNAME:$TOKEN@github.com/$USERNAME/${repo_name}.git lineage/ -b ${branch_src}
+          cd lineage
+          git switch -c ${branch_dist}
+
+          # Adapt
+          python "../lmodroid/lineage-device-tree/adapt-to-lmodroid.py" . ${branch_src}
+
+          git add -A
+          git commit -m "Adapt to LMODroid by device-add script"
+          git push --set-upstream -o skip-validation origin ${branch_dist} -f
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
