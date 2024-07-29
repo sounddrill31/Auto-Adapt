@@ -31,10 +31,10 @@ jobs:
       - name: Run add-device.sh script
         run: |
           #./lmodroid/add-device-from-lineage/fork-and-push.sh $LOS_DT $LOS_BRANCH $LOS_DT $FINAL_BRANCH
-          repo_src=${{ github.event.inputs.LOS_DT }}
-          branch_src=${{ github.event.inputs.LOS_BRANCH }}
-          repo_dist=${{ github.event.inputs.LOS_DT }}
-          branch_dist=${{ github.event.inputs.FINAL_BRANCH }}
+          repo_src=${{ github.event.inputs.LOSDT }}
+          branch_src=${{ github.event.inputs.LOSBRANCH }}
+          repo_dist=${{ github.event.inputs.LOSDT }}
+          branch_dist=${{ github.event.inputs.FINALBRANCH }}
 
           git clone https://github.com/${repo_src}.git lineage/ -b ${branch_src}
           cd lineage
@@ -47,9 +47,3 @@ jobs:
           git commit -m "Adapt to LMODroid by device-add script"
 
           git push --set-upstream -o skip-validation origin ${branch_dist}
-
-        env:
-          LOS_DT: ${{ inputs.LOSDT }}
-          LOS_BRANCH: ${{ inputs.LOSBRANCH }}
-          FINAL_BRANCH: ${{ inputs.FINALBRANCH }}
-          GITHUB_TOKEN: ${{ secrets.PAT }}
