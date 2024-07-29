@@ -40,7 +40,7 @@ jobs:
           TOKEN=${{ secrets.PAT }}
 
           # Check if the repository exists in the user's account
-          if if [! "$USERNAME" == "$REPO_USERNAME" ]; then
+          if [! "$USERNAME" == "$REPO_USERNAME" ]; then
             echo "Repository's username is not the same as workflow runner's username. Forking..."
             gh repo fork https://github.com/${repo_src}.git --clone=true -- "lineage/ -b ${branch_src}"
             # Wait for a moment to ensure the fork is created
