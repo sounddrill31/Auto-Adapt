@@ -30,15 +30,24 @@ jobs:
 
       - name: Run add-device.sh script
         run: |
-          #./lmodroid/add-device-from-lineage/fork-and-push.sh $LOS_DT $LOS_BRANCH $LOS_DT $FINAL_BRANCH
           repo_src=${{ github.event.inputs.LOSDT }}
+          repo_name=${repo_src#*/} 
           branch_src=${{ github.event.inputs.LOSBRANCH }}
           repo_dist=${{ github.event.inputs.LOSDT }}
           branch_dist=${{ github.event.inputs.FINALBRANCH }}
           USERNAME=${{ github.actor }}
           TOKEN=${{ secrets.PAT }}
+          GITHUB_TOKEN=$TOKEN
 
-          git clone https://$USERNAME:$TOKEN@github.com/${repo_src}.git lineage/ -b ${branch_src}
+          # Check if the repository exists in the user's account
+          if ! gh repo view ${repo_src} &>/dev/null; then
+            echo "Repository doesn't exist in user's account. Forking..."
+            gh repo fork https://github.com/${repo_src}.git --clone=false
+            # Wait for a moment to ensure the fork is created
+            sleep 5
+          fi
+
+          git clone https://$USERNAME:$TOKEN@github.com/$USERNAME/${repo_name}.git lineage/ -b ${branch_src}
           cd lineage
           git switch -c ${branch_dist}
 
@@ -47,5 +56,4 @@ jobs:
 
           git add -A
           git commit -m "Adapt to LMODroid by device-add script"
-
-          git push --set-upstream -o skip-validation origin ${branch_dist}
+          git push --set-upstream -o skip-validation origin ${branch_dist} -f
