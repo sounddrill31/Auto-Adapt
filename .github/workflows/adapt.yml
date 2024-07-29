@@ -36,13 +36,12 @@ jobs:
           repo_dist=$LOS_DT
           branch_dist=$FINAL_BRANCH
 
-          git remote add lineage https://github.com/${repo_src}.git
-          git fetch lineage
-          git checkout lineage/${branch_src}
+          git clone https://github.com/${repo_src}.git lineage/ -b ${branch_src}
+          cd lineage
           git switch -c ${branch_dist}
 
           # Adapt
-          python "lmodroid/lineage-device-tree/adapt-to-lmodroid.py" . ${branch_src}
+          python "../lmodroid/lineage-device-tree/adapt-to-lmodroid.py" . ${branch_src}
 
           git add -A
           git commit -m "Adapt to LMODroid by device-add script"
