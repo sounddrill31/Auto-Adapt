@@ -31,6 +31,7 @@ jobs:
       - name: Run add-device.sh script
         run: |
           repo_src=${{ github.event.inputs.LOSDT }}
+          REPO_USERNAME=${repo_src%%/*}
           repo_name=${repo_src#*/} 
           branch_src=${{ github.event.inputs.LOSBRANCH }}
           repo_dist=${{ github.event.inputs.LOSDT }}
@@ -39,8 +40,8 @@ jobs:
           TOKEN=${{ secrets.PAT }}
 
           # Check if the repository exists in the user's account
-          if ! gh repo view ${repo_src} &>/dev/null; then
-            echo "Repository doesn't exist in user's account. Forking..."
+          if [ "$USERNAME"!= "$REPO_USERNAME" ]; then
+            echo "Repository's username is not the same as workflow runner's username. Forking..."
             gh repo fork https://github.com/${repo_src}.git --clone=true -- "lineage/ -b ${branch_src}"
             # Wait for a moment to ensure the fork is created
             sleep 5
