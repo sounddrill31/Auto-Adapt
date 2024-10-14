@@ -25,7 +25,7 @@ jobs:
 
       - name: Check for updates
         run: |
-          git checkout staging
+          git switch -c staging
           git merge --no-commit --no-ff upstream/main
           COMMIT_DIFF=$(git diff --name-only --cached | wc -l)
           if [ $COMMIT_DIFF -gt 0 ]; then
