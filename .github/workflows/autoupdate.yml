@@ -26,9 +26,9 @@ jobs:
       - name: Check for updates
         run: |
           git switch -c staging
-          git pull upstream main --rebase --strategy-option theirs
+          git pull upstream main --strategy-option theirs
             git commit -m "Update from upstream"
-            git push origin staging
+            git push origin staging 
       - name: Send Telegram notification
         run: |
           curl -X POST \
