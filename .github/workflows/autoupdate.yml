@@ -27,19 +27,14 @@ jobs:
         run: |
           git switch -c staging
           git pull upstream main --rebase --strategy-option theirs
-          COMMIT_DIFF=$(git diff --name-only --cached | wc -l)
-          if [ $COMMIT_DIFF -gt 0 ]; then
             git commit -m "Update from upstream"
             git push origin staging
-          fi
-          echo "COMMIT_DIFF=$COMMIT_DIFF" >> "$GITHUB_ENV"
-
       - name: Send Telegram notification
         run: |
           curl -X POST \
           https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage \
           -H 'Content-Type: application/json' \
-          -d '{"chat_id": "${TELEGRAM_CHAT_ID}", "text": "Updated staging branch with '${COMMIT_DIFF}' new commits from upstream!"}'
+          -d '{"chat_id": "${TELEGRAM_CHAT_ID}", "text": "Updated staging branch with new commits from upstream!"}'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
