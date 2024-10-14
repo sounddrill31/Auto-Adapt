@@ -30,3 +30,7 @@ Save the token as a github secret(for actions) called "PAT" without the quotes.
 3. **Run `adapt-to-lmodroid.py` Script**: The workflow runs a script that adapts the LineageOS device tree to LMODroid, commits the changes, and pushes them to the specified branch.
 
 This workflow leverages scripts from the LMODroid infrastructure and adapts them to work within GitHub Actions, streamlining the process of adding and adapting LineageOS device trees.
+
+## Credits
+Thanks to:
+- LMODroid team and contributors for the scripts
