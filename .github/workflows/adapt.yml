@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       LOSDT:
-        description: 'LineageOS Device Tree URL'
+        description: 'LineageOS Device Tree'
         required: true
         default: 'sounddrill31/android_device_xiaomi_gauguin'
       LOSBRANCH:
