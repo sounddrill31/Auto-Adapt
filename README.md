@@ -27,6 +27,6 @@ Save the token as a github secret(for actions) called "PAT" without the quotes.
 
 1. **Clone Scripts**: The workflow clones the necessary scripts from the LMODroid infrastructure(or my backup mirror).
 2. **Set Up Git**: Git is configured with the user's name and email.
-3. **Run `add-device.sh` Script**: The workflow runs a script that adapts the LineageOS device tree to LMODroid, commits the changes, and pushes them to the specified branch.
+3. **Run `adapt-to-lmodroid.py` Script**: The workflow runs a script that adapts the LineageOS device tree to LMODroid, commits the changes, and pushes them to the specified branch.
 
 This workflow leverages scripts from the LMODroid infrastructure and adapts them to work within GitHub Actions, streamlining the process of adding and adapting LineageOS device trees.
