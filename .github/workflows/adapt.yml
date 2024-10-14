@@ -20,8 +20,8 @@ jobs:
   add-device:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
+      - name: Clone Scripts
+        run : git clone https://git.libremobileos.com/infrastructure/scripts  scripts || git clone https://github.com/sounddrill31/lmodroid-scripts scripts
 
       - name: Set Up Git
         run: |
@@ -52,7 +52,7 @@ jobs:
           git switch -c ${branch_dist}
 
           # Adapt
-          python "../lmodroid/lineage-device-tree/adapt-to-lmodroid.py" . ${branch_src}
+          python "scripts/lmodroid/lineage-device-tree/adapt-to-lmodroid.py" . ${branch_src}
 
           git add -A
           git commit -m "Adapt to LMODroid by device-add script"
