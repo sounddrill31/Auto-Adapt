@@ -21,6 +21,8 @@ The workflow requires a Personal Access Token (PAT) with the following access:
 
 These scopes are necessary to allow the workflow to clone repositories, fork repositories if needed, push changes, and interact with GitHub Actions workflows.
 
+Save the token as a github secret(for actions) called "PAT" without the quotes.
+
 ## How It Works
 
 1. **Clone Scripts**: The workflow clones the necessary scripts from the LMODroid infrastructure(or my backup mirror).
